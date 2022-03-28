@@ -1,0 +1,59 @@
+<h3 class="font-medium leading-tight text-3xl mt-0 text-blue-600">EVENTS</h3>
+<div class="overflow-x-auto" *ngIf="events!=undefined">
+  <div class="flex justify-end mr-4">
+    <button mat-stroked-button class="text-base" color="primary" (click)="create()">
+      Create Event
+    </button>
+  </div>
+  <div class="min-w-screen min-h-screen flex justify-center bg-gray-100 font-sans overflow-hidden">
+    <div class="w-full">
+      <div class="bg-white shadow-md rounded my-6">
+        <table class="min-w-max w-full table-auto">
+          <thead>
+            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+              <th class="py-3 px-6 text-center">Id</th>
+              <th class="py-3 px-6 text-center">Title</th>
+              <th class="py-3 px-6 text-center">Venue</th>
+              <th class="py-3 px-6 text-center">Date</th>
+              <th class="py-3 px-6 text-center">Amount</th>
+              <th class="py-3 px-6 text-center">Description</th>
+              <th class="py-3 px-6 text-center">Created on</th>
+              <th class="py-3 px-6 text-center">Created By</th>
+              <th class="py-3 px-6 text-center">Updated On</th>
+              <th class="py-3 px-6 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="table-body" class="text-gray-600 text-sm font-light">
+            <tr class="border-b border-gray-200 hover:bg-gray-100" *ngFor="let event of events.data" attr.id=""
+              [ngClass]="{'bg-red-100':event.status=='deleted'}">
+              <td class="py-3 px-6 text-center whitespace-nowrap font-semibold hover:cursor-default">{{event.eventId}}
+              </td>
+              <td class="py-3 px-6 text-center font-semibold hover:cursor-default">{{event.title | titlecase}}</td>
+              <td class="py-3 px-6 text-center font-semibold hover:cursor-default">{{event.venue | titlecase}}</td>
+              <td class="py-3 px-6 text-center font-semibold hover:cursor-default">{{event.date | date}}</td>
+              <td class="py-3 px-6 text-center font-semibold hover:cursor-default">{{event.amount | currency:'INR'}}
+              </td>
+              <td class="py-3 px-6 text-center font-semibold hover:cursor-default">{{event.description | titlecase}}
+              </td>
+              <td class="py-3 px-6 text-center font-semibold hover:cursor-default">{{event.createdOn | date}}</td>
+              <td class="py-3 px-6 text-center font-semibold hover:cursor-default">{{event.createdBy}}</td>
+              <td class="py-3 px-6 text-center font-semibold hover:cursor-default">{{event.lastUpdatedOn | date}}</td>
+              <td class="py-3 px-6 text-center">
+                <div class="flex item-center justify-center" *ngIf="event.status=='active'">
+                  <button class="w-4 mr-6 transform hover:text-purple-500 hover:scale-110"
+                    attr.id="{{event.eventId}}-edit" (click)="editEvent($event)">
+                    Edit
+                  </button>
+                  <button class="w-4 mr-6 transform hover:text-purple-500 hover:scale-110"
+                    attr.id="{{event.eventId}}-del" (click)="deleteEvent($event)">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

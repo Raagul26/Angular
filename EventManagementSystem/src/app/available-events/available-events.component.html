@@ -1,0 +1,72 @@
+<div class="flex justify-center text-2xl my-10 uppercase">
+  Organizing the best events on the planet
+</div>
+
+<div *ngIf="isLoggedIn == 'true'">
+  <app-user-events></app-user-events>
+</div>
+
+<div
+  class="border-2 p-5 mx-10 rounded-3xl mt-12"
+  style="
+    background-color: #8bc6ec;
+    background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%); ;
+  "
+>
+  <h2
+    class="font-normal leading-tight text-3xl mt-0 text-center"
+  >
+    ALL EVENTS
+  </h2>
+
+  <mat-grid-list
+    cols="2"
+    rowHeight="5:4"
+    gutterSize="50px"
+    *ngIf="events && events.data"
+    class="mx-10"
+  >
+    <mat-grid-tile *ngFor="let event of events.data" class="p-10">
+      <div
+        class="max-w-2xl bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700"
+      >
+        <img
+          class="mb-5 h-80 rounded-lg"
+          src="https://mcdn.wallpapersafari.com/medium/64/24/LrEsJc.jpg"
+        />
+        <div class="px-5 pb-5">
+          <div
+            class="text-2xl font-normal tracking-normal text-gray-900 mb-5"
+          >
+            {{ event.title | titlecase }}
+        </div>
+          <div class="flex justify-between  ">
+            <div class="flex items-center mt-2.5 mb-5 space-x-2">
+              <mat-icon> location_on</mat-icon>
+              <span>{{event.venue | titlecase}}</span>
+            </div>
+            <div class="flex items-center mt-2.5 mb-5 space-x-2">
+              <mat-icon>today</mat-icon>
+             <span> {{event.date | date}}</span>
+            </div>
+          </div>
+          <div class="flex items-center mt-2.5 mb-5 space-x-2">
+            <mat-icon>description</mat-icon>
+           <span> {{event.description | titlecase}}</span>
+          </div>
+          <div class="flex justify-between items-center mt-10">
+            <span class="text-3xl font-bold text-gray-900 dark:text-white">{{
+              event.amount | currency: "INR"
+            }}</span>
+            <a
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
+              attr.id="{{ event.eventId }}"
+              (click)="bookEvent($event)"
+              >Book Event</a
+            >
+          </div>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

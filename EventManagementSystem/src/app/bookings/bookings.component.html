@@ -1,0 +1,57 @@
+<h3 class="font-medium leading-tight text-3xl mt-0 mb-2 text-blue-600">
+  BOOKINGS
+</h3>
+<form
+  class="flex justify-center items-baseline space-x-10"
+  [formGroup]="eventForm"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-form-field appearance="outline" *ngIf="titles != undefined">
+    <mat-label>Select Event Title</mat-label>
+    <mat-select formControlName="eventTitle">
+      <mat-option *ngFor="let title of titles.data" [value]="title">
+        {{ title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary">Get Users</button>
+</form>
+<div *ngIf="users != undefined && users.data.length>0; else msg" class="m-5">
+  <div class="grid grid-cols-3">
+    <div *ngFor="let user of users.data" class="mb-10">
+      <div
+        class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+      >
+        <div class="flex flex-col items-center pb-10 mt-5">
+          <img
+            class="mb-3 w-24 h-24 rounded-full shadow-lg"
+            src="../../assets/user.png"
+            alt="Bonnie image"
+          />
+          <h4 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+            {{ user.firstName + " " + user.lastName | titlecase }}
+          </h4>
+          <div class="flex items-center my-2 space-x-2">
+            <mat-icon>mail</mat-icon>
+            <span class="text-sm text-gray-600">{{ user.emailId }}</span>
+          </div>
+          <div class="flex items-center my-2 space-x-2">
+            <mat-icon>smartphone</mat-icon>
+            <span class="text-sm text-gray-600">{{ user.contactNo }}</span>
+          </div>
+          <div class="flex items-center my-2 space-x-2">
+            <span class="text-sm text-gray-600"
+              >Created on : {{ user.createdOn }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #msg>
+  <div class="text-center text-xl text-slate-400">
+    Data Not Available
+  </div>
+</ng-template>

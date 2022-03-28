@@ -1,0 +1,56 @@
+<div
+  class="flex fixed inset-0 outline-none focus:outline-none justify-center items-center bg-gray-400/80"
+>
+  <div class="relative my-6 w-1/2 shadow-2xl shadow-gray-500">
+    <!--body-->
+    <form [formGroup]="EventForm" (ngSubmit)="createEvent()" class="bg-white">
+      <div class="relative p-6 flex-auto">
+        <div class="grid grid-cols-2 gap-4">
+          <mat-form-field appearance="outline" class="w-96">
+            <mat-label>Title</mat-label>
+            <input matInput type="text" formControlName="title" />
+            <mat-error class="text-xs" *ngIf="EventForm.invalid">Title must contain min 10 chars</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-96">
+            <mat-label>Venue</mat-label>
+            <input matInput type="text" formControlName="venue" />
+            <mat-error class="text-xs" *ngIf="EventForm.invalid">Venue must contain min 3 chars</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-96">
+            <mat-label>Date</mat-label>
+            <input type="date" matInput formControlName="date" />
+            <mat-error class="text-xs" *ngIf="EventForm.invalid">Select the date</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-96">
+            <mat-label>Amount</mat-label>
+            <input type="number" matInput formControlName="amount" />
+            <mat-error class="text-xs" *ngIf="EventForm.invalid">Amount should be greater tha 100</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-96">
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              type="text"
+              class="h-20"
+              formControlName="description"
+            ></textarea>
+            <mat-error class="text-xs" *ngIf="EventForm.invalid">Description must contain min 15 chars</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end space-x-10 p-6">
+        <button mat-stroked-button mat-dialog-close color="primary">
+          CANCEL
+        </button>
+        <button mat-flat-button color="primary" type="submit">
+          {{ title | titlecase }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
